@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using POS.Api.Data;
+using POS.Api.Interfaces;
 using POS.Api.Models;
+using POS.Api.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +44,11 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization(); // menambahkan otorisasi
+#endregion
+
+#region DAFTARKAN INTERFACE DAN REPOSITORY
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 #endregion
 
 
