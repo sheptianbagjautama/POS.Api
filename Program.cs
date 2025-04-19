@@ -50,15 +50,23 @@ builder.Services.AddAuthorization(); // menambahkan otorisasi
 #region DAFTARKAN INTERFACE DAN REPOSITORY
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IKategoriRepository, KategoriRepository>();
+builder.Services.AddScoped<IProdukRepository, ProdukRepository>();
 #endregion
 
 #region DAFTARKAN AUTOMAPPER
 builder.Services.AddAutoMapper(typeof(Program));
 #endregion
 
-
+#region DAFTARKAN CONTROLLER
+builder.Services.AddControllers();
+#endregion
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -68,33 +76,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast =  Enumerable.Range(1, 5).Select(index =>
-//        new WeatherForecast
-//        (
-//            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//            Random.Shared.Next(-20, 55),
-//            summaries[Random.Shared.Next(summaries.Length)]
-//        ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
-
-app.Run();
-
 using (var scope = app.Services.CreateScope()) //// Create a scope for the service provider
 {
     await DbInitializer.SeedRoleAsync(scope.ServiceProvider); // Seed roles
 }
 
-//record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}
+app.Run();
+
