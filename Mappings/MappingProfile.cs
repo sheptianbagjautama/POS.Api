@@ -17,6 +17,22 @@ namespace POS.Api.Mappings
             CreateMap<CreateProdukDto, Produk>();
             CreateMap<Meja, MejaDto>().ReverseMap();
             CreateMap<CreateMejaDto, Meja>();
+            CreateMap<Pesanan, PesananDto>()
+            .ForMember(dest => dest.Items, opt => opt.MapFrom(src =>
+                src.ProdukPesanan.Select(pp => new ItemPesananReadDto
+                {
+                    ProdukId = pp.ProdukId,
+                    NamaProduk = pp.Produk != null ? pp.Produk.Nama : "(produk tidak ditemukan)" ,
+                    Jumlah = pp.Jumlah
+                })));
+
+            CreateMap<CreatePesananDto, Pesanan>()
+                .ForMember(dest => dest.ProdukPesanan, opt => opt.MapFrom(src =>
+                    src.Items.Select(i => new ProdukPesanan
+                    {
+                        ProdukId = i.ProdukId,
+                        Jumlah = i.Jumlah
+                    })));
         }
     }
 }
