@@ -15,6 +15,7 @@ namespace POS.Api.Data
 
         public DbSet<Kategori> Kategori { get; set; }
         public DbSet<Produk> Produk { get; set; }
+        public DbSet<Meja> Meja { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -52,6 +52,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IKategoriRepository, KategoriRepository>();
 builder.Services.AddScoped<IProdukRepository, ProdukRepository>();
+builder.Services.AddScoped<IMejaRepository, MejaRepository>();
 #endregion
 
 #region DAFTARKAN AUTOMAPPER

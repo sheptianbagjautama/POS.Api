@@ -15,6 +15,8 @@ namespace POS.Api.Mappings
             CreateMap<CreateKategoriDto, Kategori>();
             CreateMap<Produk, ProdukDto>().ReverseMap();
             CreateMap<CreateProdukDto, Produk>();
+            CreateMap<Meja, MejaDto>().ReverseMap();
+            CreateMap<CreateMejaDto, Meja>();
         }
     }
 }
