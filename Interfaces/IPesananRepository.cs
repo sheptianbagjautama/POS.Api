@@ -1,4 +1,5 @@
-﻿using POS.Api.Entities;
+﻿using POS.Api.DTOs;
+using POS.Api.Entities;
 
 namespace POS.Api.Interfaces
 {

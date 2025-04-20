@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using POS.Api.Data;
+using POS.Api.DTOs;
 using POS.Api.Entities;
 using POS.Api.Interfaces;
 

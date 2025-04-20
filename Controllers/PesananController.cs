@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POS.Api.DTOs;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 namespace POS.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     public class PesananController : ControllerBase
     {

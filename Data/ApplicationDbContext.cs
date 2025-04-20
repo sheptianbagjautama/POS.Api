@@ -44,6 +44,12 @@ namespace POS.Api.Data
                 .HasOne(pp => pp.Produk)
                 .WithMany()
                 .HasForeignKey(pp => pp.ProdukId);
+
+
+            builder.Entity<Pesanan>()
+                .HasOne(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.UserId);
         }
     }
 }

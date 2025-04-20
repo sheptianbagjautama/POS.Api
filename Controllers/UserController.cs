@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using POS.Api.DTOs;
@@ -8,6 +9,7 @@ using POS.Api.Models;
 namespace POS.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
     public class UserController : ControllerBase
     {
         private readonly IUserRepository userRepository;
