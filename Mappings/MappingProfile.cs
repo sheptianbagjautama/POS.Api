@@ -23,6 +23,7 @@ namespace POS.Api.Mappings
                 {
                     ProdukId = pp.ProdukId,
                     NamaProduk = pp.Produk != null ? pp.Produk.Nama : "(produk tidak ditemukan)" ,
+                    HargaProduk = pp.Produk != null? pp.Produk.Harga : 0m,
                     Jumlah = pp.Jumlah
                 })));
 

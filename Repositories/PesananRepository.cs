@@ -42,5 +42,26 @@ namespace POS.Api.Repositories
 
             return result;
         }
+
+        public async Task<Pesanan?> CheckoutAsync(int pesananId, string metodePembayaran)
+        {
+            var pesanan = await context.Pesanan
+                .Include(p => p.ProdukPesanan)
+                .ThenInclude(pp => pp.Produk)
+                .FirstOrDefaultAsync(p => p.Id == pesananId);
+
+            if (string.IsNullOrEmpty(pesanan!.Status)) pesanan.Status = "Pending";
+
+            if (pesanan == null || pesanan.Status != "Pending")
+                return null;
+
+            //Update
+            pesanan.TotalHarga = pesanan.ProdukPesanan.Sum(p => p.Produk!.Harga * p.Jumlah);
+            pesanan.MetodePembayaran = metodePembayaran;
+            pesanan.Status = "Paid";
+
+            await context.SaveChangesAsync();
+            return pesanan;
+        }
     }
 }

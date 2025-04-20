@@ -47,5 +47,14 @@ namespace POS.Api.Controllers
             var created = await pesananRepository.CreateAsync(pesanan);
             return Ok(mapper.Map<PesananDto>(created));
         }
+
+        [HttpPost("checkout")]
+        public async Task<IActionResult> Checkout(PesananCheckoutDto dto)
+        {
+            var result = await pesananRepository.CheckoutAsync(dto.PesananId, dto.MetodePembayaran);
+            if (result == null) return BadRequest("Pesanan tidak ditemukan atau sudah di proses");
+
+            return Ok(mapper.Map<PesananDto>(result));
+        }
     }
 }

@@ -28,6 +28,10 @@ namespace POS.Api.Data
                 .Property(p => p.Harga)
                 .HasPrecision(18, 2); //18 total digit, 2 digit desimal
 
+            builder.Entity<Pesanan>()
+               .Property(p => p.TotalHarga)
+               .HasPrecision(18, 2); //18 total digit, 2 digit desimal
+
             builder.Entity<ProdukPesanan>()
                 .HasKey(pp => new { pp.PesananId, pp.ProdukId });
 
