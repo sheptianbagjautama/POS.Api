@@ -63,5 +63,18 @@ namespace POS.Api.Repositories
             await context.SaveChangesAsync();
             return pesanan;
         }
+
+        public async Task<Pesanan?> CancelAsync(int pesananId)
+        {
+            var pesanan = await context.Pesanan.FirstOrDefaultAsync(p => p.Id == pesananId);
+
+            if (string.IsNullOrEmpty(pesanan!.Status)) pesanan.Status = "Pending";
+
+            if (pesanan == null || pesanan.Status != "Pending") return null;
+
+            pesanan.Status = "Canceled";
+            await context.SaveChangesAsync();
+            return pesanan;
+        }
     }
 }

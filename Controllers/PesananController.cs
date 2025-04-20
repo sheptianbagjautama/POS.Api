@@ -56,5 +56,14 @@ namespace POS.Api.Controllers
 
             return Ok(mapper.Map<PesananDto>(result));
         }
+
+        [HttpPost("cancel/{id}")]
+        public async Task<IActionResult> Cancel(int id)
+        {
+            var result = await pesananRepository.CancelAsync(id);
+            if (result == null) return BadRequest("Pesanan tidak ditemukan atau tidak bisa di batalkan");
+
+            return Ok("Pesanan berhasil dibatalkan");
+        }
     }
 }
