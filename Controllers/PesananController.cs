@@ -65,5 +65,12 @@ namespace POS.Api.Controllers
 
             return Ok("Pesanan berhasil dibatalkan");
         }
+
+        [HttpGet("history")]
+        public async Task<IActionResult> GetHistory([FromQuery] string? status, [FromQuery] DateTime? from, [FromQuery] DateTime? to)
+        {
+            var list = await pesananRepository.GetHistoryAsync(status, from, to);
+            return Ok(mapper.Map<IEnumerable<PesananDto>>(list));
+        }
     }
 }

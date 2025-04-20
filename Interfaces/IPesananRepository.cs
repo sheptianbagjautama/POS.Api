@@ -9,5 +9,6 @@ namespace POS.Api.Interfaces
         Task<Pesanan> CreateAsync(Pesanan pesanan);
         Task<Pesanan?> CheckoutAsync(int pesananId, string metodePembayaran);
         Task<Pesanan?> CancelAsync(int pesananId);
+        Task<IEnumerable<Pesanan>> GetHistoryAsync(string? status = null, DateTime? from = null, DateTime? to = null);
     }
 }

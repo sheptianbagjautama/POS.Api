@@ -17,5 +17,7 @@ namespace POS.Api.Entities
         public string? MetodePembayaran { get; set; }
 
         public ICollection<ProdukPesanan> ProdukPesanan { get; set; } = new List<ProdukPesanan>();
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

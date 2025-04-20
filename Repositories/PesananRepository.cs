@@ -76,5 +76,28 @@ namespace POS.Api.Repositories
             await context.SaveChangesAsync();
             return pesanan;
         }
+
+        public async Task<IEnumerable<Pesanan>> GetHistoryAsync(string? status = null, DateTime? from = null, DateTime? to = null)
+        {
+            var query = context.Pesanan
+                .Include(p => p.ProdukPesanan)
+                .ThenInclude(pp => pp.Produk)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(status))
+                query = query.Where(p => p.Status == status);
+
+            if (from.HasValue)
+                query = query.Where(p => p.TanggalPesan >= from.Value);
+
+            if (to.HasValue)
+            {
+                var endOfDay = to.Value.Date.AddDays(1).AddTicks(-1);
+                query = query.Where(p => p.TanggalPesan <= endOfDay);
+            }
+                
+
+            return await query.OrderByDescending(p => p.CreatedAt).ToListAsync();
+        }
     }
 }
